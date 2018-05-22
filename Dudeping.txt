@@ -1,0 +1,181 @@
+git 学习
+
+1. 安装 git：https://git-scm.com/downloads 直接下载安装程序即可; 
+	当然, Linux 和 mac 可以使用包安装 sudo apt-get install git;
+	说明: 安装 VS 时在单个组件处勾上 "适用于 Windows 的 Git“ 会自动安装上 Git (包括 Shell 和 图形界面).
+
+2. 基本配置
+	git config --global user.name "杜德平"
+	git config --global user.email "2512303162@qq.com"
+	
+3. 初始化库 
+    git init
+
+4. 添加进仓库
+    git add <文件名>
+
+5. 提交到仓库
+	git commit -m "说明"
+
+6. 显示状态
+	git status
+
+7. 对比文件
+	// 工作区和暂存区
+	git diff <文件名>
+	// 暂存区和版本库
+	git diff --cached <文件名>
+	// 工作区和版本库
+	git diff HEAD
+
+8. 查看提交记录
+	git log [--pretty=oneline]
+
+9. 版本回退
+	// HEAD 表示当前版本, HEAD^ 表示上一个版本, 以此类推, 也可以使用 HEAD~1 方式表示;
+	git reset --hard HEAD^ // 表示回到上一个版本;
+	git reset --hard <版本号> // 跳到对应的版本号;
+
+	git reflog 可以找到执行的命令记录, 含对应的版本号, 联系上面命令可跳到任意版本;
+	// 说明：注意回退版本之前先提交当前版本, 以免到时候跳转回来;
+
+	// 另外, 如果有远程库, 那么, 使用上述 reset 后, 再 git push 便会出错, 会提示先 git pull;
+	// 但是如果使用 git revert <版本号> 则不会, 因为 reset 会擦除比回退版本新的版本, 指针回移; 
+	// 但是 revert 则是提交一个和要回退到的新版本, 指针前移.
+
+10. 撤销工作区修改
+	git checkout -- <文件名> 
+	// 该命令原意为签出文件, 所以也可用作还原误删的文件.
+
+11. 将修改从缓存区退回工作区
+	git reset HEAD <文件名>
+
+12. 删除文件
+	git rm <文件名>
+
+13. 本地和 github 间使用 SSH 加密传输，则需要配置 SSH Key
+	// 在用户主目录下的 .ssh 目录中 版本号_rsa(私钥) 和 版本号_rsa.pub(公钥);
+
+	// 若没有 则输入命令 ssh-keygen -t rsa -C "2512303162@qq.com";
+	// 然后一直回车, 直到成功, 可以不用密码;
+	// 如果找不到 key type rsa, 则去掉 -t rsa;
+
+	// 在 github --> Account setting --> SSH Key --> Add SSH Key 中贴入 版本号_rsa.pub 公钥;
+	// 支持多个公钥, 对应就是多台机器可以提交.
+
+14. 关联远程库
+	git remote add <远程库名> <远程库链接>
+	// 例如: git remote add github git@github.com:Dudeping/learngit.git
+	
+	// 第一次推送该分支，推送并关联远程分支
+	git push -u <远程库名> <分支名>
+	// 例如: git push -u github master
+	
+	// 之后的推送
+	git push <远程库名> <分支名>
+	// 例如: git push github master
+
+	说明: 一个本地库可以关联多个远程库
+
+15. 远程克隆
+	创建一个 github 仓库
+	// 克隆
+	git clone <远程库链接>
+	// 例如: git clone git@github.com:Dudeping/gitskills.git
+
+16. 创建分支
+	git checkout -b <分支名>
+	// -b 表示切换到该分支，等同于下面的命令
+	git branch <分支名>
+	git checkout <分支名>
+	
+17. 显示分支情况
+	git branch
+
+18. 合并分支
+	git merge <分支名>
+
+19. 删除分支
+	git branch -d <分支名>
+
+20. 查看分支情况
+	git log --graph [--pretty=oneline] [--abbrev-commit]
+
+21. --no-ff 方式合并分支(非快速合并)
+	git merge --no-ff -m "merge with no-ff" <分支名>
+
+22. 储藏现场
+	git stash
+	恢复
+	git stash pop
+	或者
+	git stash apply [stash@{0}]
+	git stash drop [stash@{0}]
+	查看
+	git stash list
+
+23. 强制删除未合并分支
+	git branch -D <分支名>
+
+24. 签出其他远程分支
+	// 直接从远程克隆只会克隆主分支
+	git checkout -b <分支名> <远程库名>/<分支名>
+	说明：签出其他分支时, 要保证当前分支所有内容都已提交
+
+25. 抓取远程分支
+	git pull
+
+26. 设置本地和远程分支的链接
+	git branch --set-upstream <分支名> <远程库名>/<分支名>
+
+27. 打标签
+	git tag <标签名> // 默认打在最近一次提交
+	// 打在指定提交
+	git tag <标签名> <版本号>
+	// 添加说明
+	git tag <标签名> -m "说明" <版本号>
+	// 查看所有标签
+	git tag
+	// 查看指定标签
+	git show <标签名>
+	
+28. 删除标签
+	git tag -d <标签名>
+
+29. 推送标签
+	git push <远程库名> <标签名>
+	// 推送所有
+	git push <远程库名> --tags
+	
+30. 删除远程标签
+	// 先删除本地
+	git tag -d <标签名>
+	// 在推送
+	git push <远程库名> :refs/tags/<标签名>
+
+31. 删除远程库连接
+	git remote <远程库名> 
+
+31. 参与开源
+	先 fork, 再 clone 自己的仓库, 修改后提交, 然后 pull request, 等待原作者合并.
+
+32. 使用码云
+	添加 SSH-key
+	然后链接远程库即可
+
+总结
+	1) 推送到远程库
+		a. 设置 SSH-Key
+		b. 创建远程库
+		c. 使用 git remote add <远程库名> <远程库链接> 关联远程库
+		d. 使用 git push <远程库名> <分支名> 来推送分支
+		e. 使用 git pull <远程库名> 拉取远程版本
+
+	2) 克隆远程库
+		a. 设置 SSH-Key
+		b. 使用 git clone <远程库链接> 克隆
+		c. 使用 git branch --set-upstream <分支名> <远程库名>/<分支名>
+		d. 使用 git push <远程库名> <远程分支名>
+		e. 使用 git pull <远程库名> 拉取远程版本
+	3) 其他
+		其实, 在 Visual Studio Code 中基本支持了上诉的常用命令的图形化操作, 并且非常美观方便
