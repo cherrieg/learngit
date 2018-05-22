@@ -1,0 +1,17 @@
+创建分支并切换： 	git checkout -b
+合并分支：        	git merge
+添加文件到暂存区	git add
+提交文件到当前分支	git commit -m
+添加标签		git tag
+查看文件状态		git status
+提交历史		git log
+命令历史		git reflog
+版本回退		git reset --hard
+撤销修改（工作区）	git checkout --filename
+暂存区到工作区		git reset HEAD filename
+删除文件		git rm
+
+
+
+若在分支dev上添加了新的东西，在master分支合并dev分支时，合并模式为Fast-forward（快速模式），此时是直接把指针从master指向dev。
+
