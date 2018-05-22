@@ -1,0 +1,49 @@
+these are some git commands from Mr.廖雪峰 teacher, Thank you very much!
+
+git status/ git diff/ git add/ git commit -m ""/ git log/ git log --pretty=oneline
+git log --pretty=oneline --abbrev-commit
+
+Revert to history version:
+git reset --hard HEAD^/ git reflog/ git reset --hard (commit id)
+git diff HEAD -- file
+if not add: git checkout -- file
+if add: git reset HEAD file /git checkout -- file
+
+Remove:
+git rm file
+
+Push to github
+git remote add origin git@github.com:xing1992/learngit.git
+git push -u origin master
+git push origin master
+
+create and change into dev: git checkout -b dev
+create branch: git branch
+switch branch: git checkout name
+merge branch into this branch: git merge name/ git merge --no-ff -m "xxx" name
+delete branch: git branch -d name
+force delete branch: git branch -D name
+
+stash this branch: git stash
+check stash list: git stash list
+resume stash: git stash apply/ git stash drop/ git stash pop
+
+check origin info: git remote/ git remote -v
+push branch: git push origin master
+checkout dev: git checkout -b dev origin/dev
+pull: git pull
+
+git push origin branch-name 
+git pull 
+git branch --set-upstream branch-name origin/branch-name
+git checkout -b branch-name origin/branch-name
+
+create a tag on this branch: git tag tagname
+Show all tags: git tag
+Create a tag on one commit: git tag tagname commitid
+Create a tag with comment: git tag -a tagname -m "" commitid
+
+push local tag: git push origin tag name
+push all tags: git push origin --tags
+Delete a local tag: git tag -d tagname
+delete a origin tag: git push origin :refs/tags/tagname
