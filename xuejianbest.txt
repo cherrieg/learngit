@@ -1,0 +1,117 @@
+显示当前版本及以前的所有版本（不会显示重复和更新的版本）
+git log 
+git log -3 #显示最近3次提交
+git log --pretty=oneline #一行显示一个
+
+显示所有操作，包括所在的版本号
+git reflog 
+git reflog -3 #显示最近3次操作
+
+将当前版本转换到指定版本号：
+git reset --hard HAED~1 # 转换当前版本到上一个版本
+git reset --hard 2520412 # 2520412为版本号
+
+比较版本文件不同
+git diff HEAD^ HEAD readme.txt # 比较分支中当前版本的readme.txt和分支中上个版本的有什么不同
+git diff HEAD --  readme.txt # 比较工作区的readme.txt和分支中当前版本的有什么不同
+
+放弃git工作区的修改（对于已经用git add添加到暂存区的修改，即使未commit也不会丢失，也就是说将工作区内容同步到和暂存区一样）
+git checkout -- readme.txt
+
+放弃暂存区的提交，将暂存区同步到和分支HEAD一样（不影响工作区）
+git reset HEAD readme.txt
+
+将工作区删除的文件提交到暂存区
+git rm test.txt
+git add --all test.txt # 同上，也可以将删除修改提交到暂存区
+
+要找回删除的文件
+git checkout -- test.txt # 实际上就是同步工作区到和暂存区一样，因为暂存区没有受到删除test.txt的命令，所以自然工作区的test.txt就回来了
+
+远程仓库：
+关联一个现有仓库和远程仓库：
+git remote add origin git@server-name:path/repo-name.git
+git push -u origin master #提交本地仓库分支到远程仓库，首次提交加-u参数
+git remote remove origin #删除关联
+
+
+
+分支：
+查看分支：
+git branch
+
+创建分支：
+git branch <name>
+
+切换分支：
+git checkout <name>
+
+创建+切换分支：
+git checkout -b <name>
+
+合并某分支到当前分支：
+git merge <name>  #合并一般会有冲突，然后在当前分支上的再次commit操作会被视作解决冲突。（这个commit一般会手动修改冲突内容）
+
+删除分支：
+git branch -d <name> #删除一个已经合并过的分支
+git branch -D <name> #强制删除一个未合并的分支，分支里面的修改会丢失
+
+查看分支图
+git log --graph
+
+在合并分支的时候，如果用fast forward模式，删除分支可能会丢失分支信息，此时加入--no-ff参数，能把合并操作作为一个commit：
+git merge dev --no-ff  -m "commit msg" 
+
+
+
+暂存工作区和暂存区状态：
+git stash  #暂存
+git stash list #列出暂存
+git stash drop #删除暂存
+git stash apply #恢复暂存
+git stash pop #恢复暂存并删除暂存
+git stash apply stash@{0} #对特定暂存进行恢复
+
+
+远程分支：
+
+查看远程库信息（不包含分支信息）
+git remote -v
+
+从本地推送到远程分支
+git push origin dev #将本地当前分支提交到远程dev分支
+
+如果推送失败，先用git pull抓取远程的新提交。（拉取成功后会混合，如果有冲突需要手动解决冲突，再本地commit，然后就可以成功推送）
+git pull #如果本地分支没有和远程分支建立关联，则可以显示指定，或建立关联
+git pull origin dev #显示指定拉去的是远程的dev分支
+git branch --set-upstream origin/dev dev #将本地dev分支和远程dev分支建立关联
+
+在本地创建和远程分支对应的分支（只是拉取内容，并不会建立关联）
+git checkout -b dev origin/dev #将远程的dev分支拉取到本地新创建的dev分支，并切换到本地dev分支
+
+
+标签：
+标签就是commit的别名，标识了一个特定的commit，方便记忆版本号以用来查看或回滚等，使用标签和使用commit id一样。
+
+创建和显示标签：
+git tag #查看所有标签
+git tag v1.0 #在当前分支的当前commit上创建标签，标签名为v1.0
+git tag v1.1 a87d503 #在当前分支的a87d503 commit上创建标签
+git tag -a v0.9 -m "即将发布版本" #可以指定标签信息
+git tag -s v2.0 -m "版本2.0" #可以用PGP签名标签，用私钥签名的标签不可伪造，因为可以验证
+git show v1.0 #查看一个标签的相信信息
+
+删除和推送标签：
+git tag -d v0.9 #删除本地标签v0.9
+git push origin v1.0 #将未推送过的本地标签v1.0推送到远程（标签不会主动推送到远程）
+git push origin --tags #推送全部未推送过的本地标签
+git push origin :refs/tags/v0.9 #将本地删除的v0.9标签也在远程删除
+
+
+
+
+
+
+
+
+

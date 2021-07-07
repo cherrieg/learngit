@@ -1,7 +1,16 @@
-mydb.txt
-*.ignore
+﻿# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python:
+*.py[cod]
 *.so
-*.class
-#windows
-*.ini
-*.Thumbs.db
+*.egg
+*.egg-info
+dist
+build
+
+# My configurations:
+db.ini
+deploy_key_rsa

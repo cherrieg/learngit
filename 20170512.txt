@@ -1,0 +1,61 @@
+谢谢廖老师
+
+然后附带思维简图笔记一份
+!Iniitialize
+!!git init
+!!git config --global user.name "Your Name"
+!!git config --global user.email "email@example.com"
+!add file
+!!git add file.xxx
+!!git commit -m "xxxx"
+!file control
+!!git status
+!!git diff
+!!git reset --hard commit_id
+!log
+!!git log
+!!git reflog
+!back
+!!git checkout -- file
+!!git  reset HEAD file
+!delete file
+!!git rm
+!github
+!!git remote add origin git@server-name:path/repo-name.git
+!!git push -u origin master
+!!git push origin branch-name
+!!git clone git@server-name:path/repo.git
+!!git checkout -b branch-name origin/branch-name
+!!git branch --set-upstream branch-name origin/branch-name
+!!git pull
+!!git remote
+!!!-v
+!branch
+!!git branch
+!!!<name>
+!!!-b <name>
+!!!-D <name>
+!!git checkout <name>
+!!!-b <name>
+!!git merge <name>
+!!!--no-ff -m "introduce" <name> 
+!!git log --graph --pretty=oneline --abbrev-commit
+!!bug
+!!!git stash
+!!!!list
+!!!!pop
+!!!!drop
+!!!!apply
+!!!!!stash@{0}
+!tag
+!！git tag
+!！!<name>
+!！！! <tagname>
+!！！-a <tagname> -m "blablabla..."
+!！！-s <tagname> -m "blablabla..."
+！！!-d <tagname>
+！！git show <tagname>
+！！online
+！！!git push origin <tagname>
+！！！git push origin --tags
+！！！git push origin :refs/tags/<tagname>

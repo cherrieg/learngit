@@ -1,0 +1,69 @@
+﻿官网下载，默认安装
+
+$ git config --global user.name "liujunfen"
+
+$ git config --global user.email "liujunfen123@163.com"
+
+创建版本库
+$ mkdir learngit
+$ cd learngit
+$ pwd
+
+/c/Users/Administrator.PC-201612071736/learngit
+
+$ git init
+
+
+
+
+ssh-keygen -t rsa -C "liujunfen123@163.com"
+
+
+本地仓库和github仓库关联
+git remote add origin git@github.com:liujunfen/learngit.git
+
+
+git push -u origin master
+
+报错
+The authenticity of host 'github.com (13.250.177.223)' can't be established.
+
+解决：
+说是主机密钥验证失败, 后来google了老半天时间发现是缺少了 known_hosts 文件, 而且必须生成 github.com 的ip执行内容. 如下:
+[root@iZ94xpmg9boZ .ssh]# ssh git@github.comThe authenticity of host 'github.com (192.30.252.131)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)? yes #这里写 yes
+Warning: Permanently added 'github.com,192.30.252.131' (RSA) to the list of known hosts.
+Permission denied (publickey).
+然后 .ssh 目录里将是三个文件 . 这样再连的时候就没事了. 希望能把这个点在你的教程里补上, 非常感谢你的分享 , 受益匪浅.
+
+
+
+
+git remote rm origin
+ssh-keygen -t rsa -C "liujunfen123@163.com"
+
+
+
+克隆远程仓库
+git clone git@github.com:liujunfen/gitskills.git
+
+
+分支的创建
+git checkout -b dev
+
+查看分支：
+git branch
+
+合并：
+git merge dev
+
+删除分支
+git branch -d dev
+
+用github参与开源开发
+先把开源项目fork到自己的github
+
+git clone git@github.com:liujunfen/learngit-1.git
+
+

@@ -1,0 +1,10 @@
+谢谢 廖老师，一直想学习怎么用git GitHub ，这次很好的学习了，很适合新手。
+	------
+	
+	
+	
+		git branch --set-upstream dev origin/dev   这个关联语句好像过时了，用
+		
+		
+		--track  或者  --set-upstream-to  代替
+		

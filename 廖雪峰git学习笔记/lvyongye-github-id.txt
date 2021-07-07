@@ -1,0 +1,145 @@
+1.mkdir learngit //创建一个文件目录
+2. cd learngit    //进入这个目录
+3.pwd   //显示当前目录
+3.git init     //初始化git仓库(受git管理的目录结构)
+
+4.git add  <file>    //把文件添加到仓库
+5.git commit -m  ' message'  //把文件提交到仓库
+
+6.git status    //查看状态
+7.git diff    //查看不同
+
+8.git log   //查看commit日志
+9.git log --pretty=oneline   //简化日志，一行显示
+
+10.git reset --hard [head^|head^^|head~100]   //重置版本号[上一个|上上一个|之前第一百个]
+11.cat readme.txt    //当前版本号的文件的内容
+
+12.git reflog   //记录每一次命令的提交
+
+13.git diff head -- readme.txt    //比较版本库和工作区的不同
+14.git checkout -- <file>   //工作区有修改|删除，撤销到修改|删除之前的状态；暂存区后再修改，撤销到修改之前的状态
+15.git reset head <file>    //把暂存区中的修改撤销掉，重新放回工作区  
+16.rm <file>    //工作区删除文件
+17.git rm <file>   //版本库中删除文件
+18.git commit -m ''  //并且提交
+
+远程仓库
+第1步：创建SSH Key
+ssh-keygen -t rsa -C "youremail@example.com"  //配置ssh加密
+第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面
+第2步：点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容
+
+1.本地仓库推送到GitHub
+git remote add origin git@github.com:lvyongye/learngit.git  //本地仓库和github关联
+git push -u origin master   //把本地仓库的内容推送到Github仓库
+2.本地库克隆GitHub项目
+git clone git@github.com:lvyongye/gitskills.git
+
+
+分支管理
+1.git checkout -b dev   //创建dev分支    
+   或者  git branch dev     git checkout dev
+2.git merge dev     //合并dev分支到当前分支
+3.git branch -d dev   //删除dev分支
+
+git branch    //列出所有分支
+git checkout master    //切换到master分支
+
+查看分支合并图
+git log --graph --pretty=oneline --abbrev-commit                                    
+
+合并分支dev （no-ff表示禁用 Fast-forward，此次合并要创建一个新的commit，所以把-m参数写进去）
+git merge --no-ff -m "merge with no-ff" dev
+
+bug分支
+1.git stash     //把当前工作现场‘储存’起来，等以后恢复现场后继续工作
+2.git stash list  //查看储存的工作现场列表
+恢复工作现场
+1.git stash apply  然后删除：git stash drop
+2.git stash pop  //恢复的同事删除
+指定恢复
+git stash apply stash@{0}
+
+删除没有合并的分支
+git branch -D <file>
+
+查看远程库的信息
+git remote -v
+
+本地分支所有提交推送到远程库
+git push origin master   //推送master分支上的所有的本地提交
+
+克隆到本地的，默认只要master分支，需要切换分支，用如下命令
+git checkout -b dev origin/dev
+
+关联本地分支和远程库分支
+git branch --set-upstream-to=origin/<branch> <branch>
+拉取更新
+git pull
+
+
+多人协作的工作模式通常是这样：
+
+首先，可以试图用git push origin branch-name推送自己的修改；
+
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+如果合并有冲突，则解决冲突，并在本地提交；
+
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to=origin/<branch> <branch>
+
+
+查看远程库信息，使用git remote -v；
+
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+建立本地分支和远程分支的关联，使用git branch --set-upstream-to=origin/<branch> <branch>；
+
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+
+打标签
+git tag v1.0
+通过commit id 打标签
+git tag v1.0 <commit id>
+创建带有说明的标签
+git tag -a v0.1 -m 'version 0.1' <commit id>
+查看所有标签
+git tag
+查看标签信息
+git show v1.0
+查看历史提交commit id
+ git log --pretty=oneline --abbrev-commit
+删除某一个标签
+git tag -d v0.1
+推送某个标签到远程
+git push origin v1.0
+所有本地标签推送到远程
+git push origin --tags
+
+远程删除标签
+git tag -d v0.9  //先本地删除
+git push origin :refs/tags/v0.9    //在推送到远程删除
+命令git push origin <tagname>可以推送一个本地标签；
+
+命令git push origin --tags可以推送全部未推送过的本地标签；
+
+命令git tag -d <tagname>可以删除一个本地标签；
+
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+
+
+
+
+
+
+
+
